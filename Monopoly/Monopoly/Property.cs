@@ -6,10 +6,14 @@
 
 class Property : Square
 {
-    public Property(short Num, short X, short Y, string Name) 
-        : base(Num,X,Y,Name)
+    public string Price { get; set; } // To change
+    public string Colour { get; set; }
+
+    public Property(short Num, short X, short Y, string Name, 
+        string Price, string Colour) : base(Num,X,Y,Name)
     {
-        
+        this.Price = Price;
+        this.Colour = Colour;
     }
 }
 

@@ -70,6 +70,7 @@ class GameScreen : Screen
     //Display information about square where player is
     private void writeSquare()
     {
+
         Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
         Hardware.WriteHiddenText(squares[player.Pos].Num + " - "+
             squares[player.Pos].Name, 650, 400,
@@ -135,21 +136,29 @@ class GameScreen : Screen
                     line = sw.ReadLine();
                     if (line != null)
                     {
+                        
                         string[] words = line.Split('-');
                         int i = Convert.ToInt32(words[0]);
                         string name = words[1];
-                        if (words.Length == 4)
+                        Square s = new Square((short)(i), x, y, name);
+
+                        switch(words.Length)
                         {
-                            Property s = new Property((short)(i), x, y, name);
-                            squares.Add(s);
+                            case 4:
+                                s = new Property((short)(i), x, y, name+" P", 
+                                    words[2], words[3]);
+                                break;
+                            case 3:
+                                if(words[2] != "CC" && words[2] != "C")
+                                    s = new Tax((short)(i), x, y, name + " T",
+                                        words[2]);
+                                else
+                                    s = new Card((short)(i), x, y, name + " C",
+                                        words[2]);
+                                break;
                         }
-                        else
-                        {
-                            Property s = new Property((short)(i), x, y, name);
-                            squares.Add(s);
-                        }
-                        
-                       
+                        squares.Add(s);
+
                         //Calculate x and y of squares
                         if (i < 11)
                             x -= 50;
