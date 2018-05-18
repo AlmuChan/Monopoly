@@ -1,0 +1,35 @@
+﻿/*
+ * Almudena López Sánchez 2018
+ * 
+ * 0.01, 15-May-2018: Create class, constructor and method ShowMenu
+ */
+
+class Player
+{
+    string[] menu = { "1. Roll Dices", "2. Show propierties",
+        "3. Finish turn" };
+    public short Num { get; set; }
+    public short Pos { get; set; }
+
+    public Player(short Num)
+    {
+        this.Num = Num;
+        Pos = 0;
+    }
+
+    public void ShowMenu()
+    {
+        Font font30 = new Font("Fonts/riffic-bold.ttf", 30);
+        Hardware.WriteHiddenText("Player "+ Num, 650, 100,
+                0xFF, 0x00, 0x00, font30);
+
+        Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
+        for (short i = 0,y = 180; i < menu.Length; i++)
+        {
+            Hardware.WriteHiddenText(menu[i], 650, y,
+                0xFF, 0xFA, 0x00, font18);
+            y += 50;
+        }   
+    }
+
+}
