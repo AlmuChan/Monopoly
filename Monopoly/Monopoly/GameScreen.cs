@@ -6,6 +6,7 @@
  *      add player and add method RollDices
  * 0.03, 16-May-2018: Add method readSquares (read file) and mehod
  *      writeSquare
+ * 0.04, 18-May-2018: Classify types of squares add method checkSquares
  */
 
 using System;
@@ -70,11 +71,18 @@ class GameScreen : Screen
     //Display information about square where player is
     private void writeSquare()
     {
-
+        Font font16 = new Font("Fonts/riffic-bold.ttf", 16);
         Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
         Hardware.WriteHiddenText(squares[player.Pos].Num + " - "+
             squares[player.Pos].Name, 650, 400,
             0xFF, 0xFA, 0x00, font18);
+        string line2 = "";
+        if (squares[player.Pos].GetType().ToString() == "Tax")
+            line2 = "Price Tax"; //TO DO
+
+        Hardware.WriteHiddenText(line2, 650, 400,
+        0xFF, 0xFA, 0x00, font16);
+
     }
 
     //Check keys pressed
@@ -115,6 +123,15 @@ class GameScreen : Screen
             squares[player.Pos].Y);
 
         isRollDices = true;
+        checkSquare();
+    }
+    //Do actions of square where player is
+    private void checkSquare()
+    {
+        int square = player.Pos;
+        /*if (squares[square].GetType().ToString()
+            == "Tax")
+            player.DecreaseMoney((Tax)(squares[square].Price));*/
     }
 
     //Read files of squares and add to list of squares
@@ -151,7 +168,7 @@ class GameScreen : Screen
                             case 3:
                                 if(words[2] != "CC" && words[2] != "C")
                                     s = new Tax((short)(i), x, y, name + " T",
-                                        words[2]);
+                                        Convert.ToInt32(words[2]));
                                 else
                                     s = new Card((short)(i), x, y, name + " C",
                                         words[2]);

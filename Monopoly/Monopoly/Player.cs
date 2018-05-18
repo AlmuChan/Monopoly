@@ -2,6 +2,7 @@
  * Almudena López Sánchez 2018
  * 
  * 0.01, 15-May-2018: Create class, constructor and method ShowMenu
+ * 0.02, 18-May-2018: Add money and display it
  */
 
 class Player
@@ -10,11 +11,23 @@ class Player
         "3. Finish turn" };
     public short Num { get; set; }
     public short Pos { get; set; }
+    public int Money { get; set; }
 
     public Player(short Num)
     {
         this.Num = Num;
         Pos = 0;
+        Money = 2000;
+    }
+
+    public void DecreaseMoney(int amount)
+    {
+        Money -= amount;
+    }
+
+    public void IncreaseMoney(int amount)
+    {
+        Money += amount;
     }
 
     public void ShowMenu()
@@ -23,8 +36,11 @@ class Player
         Hardware.WriteHiddenText("Player "+ Num, 650, 100,
                 0xFF, 0x00, 0x00, font30);
 
+        Hardware.WriteHiddenText("Money: " + Money, 700, 130,
+                0xFF, 0x00, 0x00, font30);
+
         Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
-        for (short i = 0,y = 180; i < menu.Length; i++)
+        for (short i = 0,y = 200; i < menu.Length; i++)
         {
             Hardware.WriteHiddenText(menu[i], 650, y,
                 0xFF, 0xFA, 0x00, font18);
