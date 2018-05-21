@@ -8,12 +8,19 @@ class Property : Square
 {
     public string Price { get; set; } // To change
     public string Colour { get; set; }
+    public short NumPropietary { get; set; }
 
     public Property(short Num, short X, short Y, string Name, 
         string Price, string Colour) : base(Num,X,Y,Name)
     {
         this.Price = Price;
         this.Colour = Colour;
+        NumPropietary = 0;
+    }
+
+    public void Buy()
+    {
+        //TO DO
     }
 }
 

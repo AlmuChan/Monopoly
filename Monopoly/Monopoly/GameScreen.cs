@@ -9,10 +9,8 @@
  * 0.04, 18-May-2018: Classify types of squares add method checkSquares
  */
 
-using System;
 using Tao.Sdl;
 using System.Collections.Generic;
-using System.IO;
 
 class GameScreen : Screen
 {
@@ -31,11 +29,11 @@ class GameScreen : Screen
         dice2 = new Dice();
         token = new Token();
         player = new Player(1);
-        squares = new List<Square>();
+        squares = Square.ReadSquares();
         
         isRollDices = false;
         exit = false;
-        readSquares();
+        
     }
     
     public override void Run()
@@ -49,6 +47,7 @@ class GameScreen : Screen
         while (!exit);
     }
 
+    //Display all elements in the screen
     private void drawElements()
     {
         hardware.DrawImage(board);
@@ -60,6 +59,7 @@ class GameScreen : Screen
         hardware.ShowHiddenScreen();
     }
 
+    //Draw two dices in a determinate position
     private void drawDices()
     {
         hardware.DrawSprite(dice1.dice, 650, 10,
@@ -68,7 +68,8 @@ class GameScreen : Screen
             dice2.X, dice2.Y, Dice.WIDTH, Dice.HEIGHT);
     }
 
-    //Display information about square where player is
+    //Display information about square where player 
+    //and do action of the square
     private void writeSquare()
     {
         Font font16 = new Font("Fonts/riffic-bold.ttf", 16);
@@ -76,13 +77,25 @@ class GameScreen : Screen
         Hardware.WriteHiddenText(squares[player.Pos].Num + " - "+
             squares[player.Pos].Name, 650, 400,
             0xFF, 0xFA, 0x00, font18);
-        string line2 = "";
-        if (squares[player.Pos].GetType().ToString() == "Tax")
-            line2 = "Price Tax"; //TO DO
 
-        Hardware.WriteHiddenText(line2, 650, 400,
+        string line2 = " ";
+        switch(squares[player.Pos].GetType().ToString())
+        {
+            case "Tax":
+                line2 = "Price: " + ((Tax)squares[player.Pos]).Price;
+                player.DecreaseMoney(((Tax)squares[player.Pos]).Price);
+                break;
+            case "Property":
+                line2 = "Price: " + ((Property)squares[player.Pos]).Price +
+                    "   Colour: "+ ((Property)squares[player.Pos]).Colour;
+                break;
+            case "Card":
+                line2 = "Type: " + ((Card)squares[player.Pos]).Type;
+                break;
+        }
+
+        Hardware.WriteHiddenText(line2, 650, 450,
         0xFF, 0xFA, 0x00, font16);
-
     }
 
     //Check keys pressed
@@ -95,8 +108,9 @@ class GameScreen : Screen
             if(!isRollDices)
             {
                 rollDices();
-            }    
-
+            }
+        if (hardware.KeyPressed(Sdl.SDLK_2))
+            player.ShowProperties();
         if (hardware.KeyPressed(Sdl.SDLK_3))
             isRollDices = false;
     }
@@ -116,96 +130,16 @@ class GameScreen : Screen
 
         player.Pos += (short)(dice1.numDice + dice2.numDice);
         if (player.Pos >= 40)
+        {
             player.Pos -= 40;
+            player.IncreaseMoney(200);
+        }
 
         //Move token to new coordinates
         token.tokenImg.MoveTo(squares[player.Pos].X,
             squares[player.Pos].Y);
 
         isRollDices = true;
-        checkSquare();
-    }
-    //Do actions of square where player is
-    private void checkSquare()
-    {
-        int square = player.Pos;
-        /*if (squares[square].GetType().ToString()
-            == "Tax")
-            player.DecreaseMoney((Tax)(squares[square].Price));*/
-    }
-
-    //Read files of squares and add to list of squares
-    private void readSquares()
-    {
-        if (!File.Exists("Files/Squares.txt"))
-            Console.WriteLine("File not exists");
-        else
-        {
-            try
-            {
-                StreamReader sw = new StreamReader("Files/Squares.txt");
-                string line;
-                //Initialize x and y positions for square
-                short x = 530;
-                short y = 530;
-                do
-                {
-                    line = sw.ReadLine();
-                    if (line != null)
-                    {
-                        
-                        string[] words = line.Split('-');
-                        int i = Convert.ToInt32(words[0]);
-                        string name = words[1];
-                        Square s = new Square((short)(i), x, y, name);
-
-                        switch(words.Length)
-                        {
-                            case 4:
-                                s = new Property((short)(i), x, y, name+" P", 
-                                    words[2], words[3]);
-                                break;
-                            case 3:
-                                if(words[2] != "CC" && words[2] != "C")
-                                    s = new Tax((short)(i), x, y, name + " T",
-                                        Convert.ToInt32(words[2]));
-                                else
-                                    s = new Card((short)(i), x, y, name + " C",
-                                        words[2]);
-                                break;
-                        }
-                        squares.Add(s);
-
-                        //Calculate x and y of squares
-                        if (i < 11)
-                            x -= 50;
-                        else if (i < 21)
-                            y -= 50;
-                        else if (i < 31)
-                            x += 50;
-                        else
-                            y += 50;
-                    }
-                }
-                while (line != null);
-                sw.Close();
-            }
-            catch (PathTooLongException)
-            {
-                Console.WriteLine("Path too long");
-            }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("File not accessible");
-            }
-            catch (IOException e)
-            {
-                Console.WriteLine("I/O error: " + e.Message);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Oooops... " + e.Message);
-            }
-        }
+        //checkSquare();
     }
 }
