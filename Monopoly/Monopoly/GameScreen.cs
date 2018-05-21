@@ -8,7 +8,7 @@
  *      writeSquare
  * 0.04, 18-May-2018: Classify types of squares add method checkSquares
  */
-
+using System;
 using Tao.Sdl;
 using System.Collections.Generic;
 
@@ -53,7 +53,6 @@ class GameScreen : Screen
         hardware.DrawImage(board);
         hardware.DrawImage(token.tokenImg);
         player.ShowMenu();
-        writeSquare();
         drawDices();
         
         hardware.ShowHiddenScreen();
@@ -84,6 +83,7 @@ class GameScreen : Screen
             case "Tax":
                 line2 = "Price: " + ((Tax)squares[player.Pos]).Price;
                 player.DecreaseMoney(((Tax)squares[player.Pos]).Price);
+                Console.WriteLine("Decrease...");
                 break;
             case "Property":
                 line2 = "Price: " + ((Property)squares[player.Pos]).Price +
@@ -140,6 +140,6 @@ class GameScreen : Screen
             squares[player.Pos].Y);
 
         isRollDices = true;
-        //checkSquare();
+        writeSquare();
     }
 }
