@@ -27,7 +27,7 @@ class Property : Square
         NumPropietary = p.Num;
         Sold = true;
         p.Money -= Price;
-        //p.listproperties.add ()
+        p.properties.Add();
     }
 }
 

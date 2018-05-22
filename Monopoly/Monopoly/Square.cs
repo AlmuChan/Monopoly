@@ -23,9 +23,9 @@ class Square
     }
 
     //Read files of squares and add to list of squares
-    public static List<Square> ReadSquares()
+    public static Square[] ReadSquares()
     {
-        List<Square> squares = new List<Square>();
+        Square[] squares = new Square[40];
 
         if (!File.Exists("Files/Squares.txt"))
             Console.WriteLine("File not exists");
@@ -39,6 +39,7 @@ class Square
                 //Initialize x and y positions for square
                 short x = 530;
                 short y = 530;
+                short count = 0;
                 do
                 {
                     line = sw.ReadLine();
@@ -65,7 +66,7 @@ class Square
                                         words[2]);
                                 break;
                         }
-                        squares.Add(s);
+                        squares[count] = s;
 
                         //Calculate x and y of squares
                         if (i < 11)
