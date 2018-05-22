@@ -54,7 +54,7 @@ class Square
                         {
                             case 4:
                                 s = new Property((short)(i), x, y, name + " P",
-                                    words[2], words[3]);
+                                    Convert.ToInt32(words[2]), words[3]);
                                 break;
                             case 3:
                                 if (words[2] != "CC" && words[2] != "C")

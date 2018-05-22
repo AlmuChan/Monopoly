@@ -13,6 +13,7 @@ class Player
     public short Pos { get; set; }
     public int Money { get; set; }
     public bool InJail { get; set; }
+    //list of properties of each player
 
     public Player(short Num)
     {
@@ -52,7 +53,11 @@ class Player
 
     public void ShowProperties()
     {
-        //TO DO
+        Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
+
+        Hardware.WriteHiddenText("My Properties:", 650, 200,
+                0xFF, 0xFA, 0x00, font18);
+        //foreach
     }
 
 }

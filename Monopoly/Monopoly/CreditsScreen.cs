@@ -8,12 +8,12 @@ class CreditsScreen : Screen
 {
     public CreditsScreen(Hardware hardware) : base(hardware)
     {
-
+        //TO DO
     }
 
     public override void Run()
     {
-        
+        //TO DO
     }
 }
 

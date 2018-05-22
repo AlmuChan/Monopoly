@@ -38,10 +38,9 @@ class GameScreen : Screen
     
     public override void Run()
     {
+        drawElements();
         do
         {
-            hardware.ClearScreen();
-            drawElements();
             ckeckKeys();
         }
         while (!exit);
@@ -50,10 +49,13 @@ class GameScreen : Screen
     //Display all elements in the screen
     private void drawElements()
     {
+        hardware.ClearScreen();
+
         hardware.DrawImage(board);
         hardware.DrawImage(token.tokenImg);
         player.ShowMenu();
         drawDices();
+        writeSquare();
         
         hardware.ShowHiddenScreen();
     }
@@ -83,7 +85,6 @@ class GameScreen : Screen
             case "Tax":
                 line2 = "Price: " + ((Tax)squares[player.Pos]).Price;
                 player.DecreaseMoney(((Tax)squares[player.Pos]).Price);
-                Console.WriteLine("Decrease...");
                 break;
             case "Property":
                 line2 = "Price: " + ((Property)squares[player.Pos]).Price +
@@ -93,9 +94,9 @@ class GameScreen : Screen
                 line2 = "Type: " + ((Card)squares[player.Pos]).Type;
                 break;
         }
-
         Hardware.WriteHiddenText(line2, 650, 450,
-        0xFF, 0xFA, 0x00, font16);
+            0xFF, 0xFA, 0x00, font16);
+        hardware.ShowHiddenScreen();
     }
 
     //Check keys pressed
@@ -103,14 +104,33 @@ class GameScreen : Screen
     {
         if (hardware.KeyPressed(Sdl.SDLK_ESCAPE))
             exit = true;
-
         if (hardware.KeyPressed(Sdl.SDLK_1))
             if(!isRollDices)
             {
                 rollDices();
             }
         if (hardware.KeyPressed(Sdl.SDLK_2))
+        {
+            hardware.ClearRightPart();
             player.ShowProperties();
+            hardware.ShowHiddenScreen();
+            do
+            {
+                //while user press 2, user can see his properties
+            }
+            while (hardware.KeyPressed(Sdl.SDLK_2));
+            drawElements();
+            /*
+            //To change
+            foreach(Square s in squares)
+            {
+                if(s.GetType().ToString() == "Property")
+                    if (((Property)s).NumPropietary == player.Num)
+                        player.ShowProperties();
+            }
+            */
+        }
+            
         if (hardware.KeyPressed(Sdl.SDLK_3))
             isRollDices = false;
     }
@@ -129,6 +149,7 @@ class GameScreen : Screen
         while (hardware.KeyPressed(Sdl.SDLK_1));
 
         player.Pos += (short)(dice1.numDice + dice2.numDice);
+        //When player come back to start square
         if (player.Pos >= 40)
         {
             player.Pos -= 40;
@@ -140,6 +161,6 @@ class GameScreen : Screen
             squares[player.Pos].Y);
 
         isRollDices = true;
-        writeSquare();
+        drawElements();
     }
 }

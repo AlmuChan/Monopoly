@@ -2,6 +2,7 @@
  * Almudena López Sánchez 2018
  * 
  * 0.01, 14-May-2018: Initial version, based on Saboteur and Gauntlet
+ * 0.02, 22-May-2018: Added a new method 
  */
 
 using System;
@@ -102,6 +103,15 @@ class Hardware
     public void ClearScreen()
     {
         Sdl.SDL_Rect source = new Sdl.SDL_Rect(0, 0, width, height);
+        Sdl.SDL_FillRect(hiddenScreen, ref source, 0);
+    }
+
+    // Clears the menu of player ( right part)
+    public void ClearRightPart()
+    {
+        // x, y, width, height
+        Sdl.SDL_Rect source = new Sdl.SDL_Rect(
+            600, 200, 400, (short)(height));
         Sdl.SDL_FillRect(hiddenScreen, ref source, 0);
     }
 }
