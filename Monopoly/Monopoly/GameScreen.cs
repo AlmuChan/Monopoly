@@ -107,6 +107,7 @@ class GameScreen : Screen
                     ((Property)squares[players[numActualPlayer].Pos]).Price +
                     "   Colour: "+ 
                     ((Property)squares[players[numActualPlayer].Pos]).Colour;
+                menuToBuy();
                 break;
             case "Card":
                 line2 = "Type: " + 
@@ -202,13 +203,14 @@ class GameScreen : Screen
     private void menuToBuy()
     {
         Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
-        hardware.ClearRightPart();
-        Hardware.WriteHiddenText("Do you want to buy?", 650, 200,
+
+        Hardware.WriteHiddenText("Do you want to buy?", 650, 500,
              0xFF, 0x00, 0x00, font18);
-        Hardware.WriteHiddenText("1.- YES", 670, 250,
+        Hardware.WriteHiddenText("1.- YES", 670, 540,
              0xFF, 0x00, 0x00, font18);
-        Hardware.WriteHiddenText("2.- NO", 670, 300,
+        Hardware.WriteHiddenText("2.- NO", 670, 570,
              0xFF, 0x00, 0x00, font18);
+
         //Wait to player to choose one option
         bool exit = false;
         do
@@ -218,7 +220,8 @@ class GameScreen : Screen
                 //To add one street to a player's list of properties
                 //in a method "Buy" in a Property's class
                 ((Property)squares[players[numActualPlayer].Pos]).
-                    Buy(players[numActualPlayer]);
+                    Buy(players[numActualPlayer],
+                    (Property)squares[players[numActualPlayer].Pos]);
                 exit = true;
             }
             if (hardware.KeyPressed(Sdl.SDLK_2))
@@ -228,7 +231,7 @@ class GameScreen : Screen
 
     }
 
-    //Finich turn and change player
+    //Finish turn and change player
     private void changePlayer()
     {
         numActualPlayer++;

@@ -2,7 +2,8 @@
  * Almudena López Sánchez 2018
  * 
  * 0.01, 14-May-2018: Create class
- * 0.02, 21-May-2018: Mehotd Buy and added atribute Sold
+ * 0.02, 21-May-2018: Method Buy and added atribute Sold
+ * 0.03, 22-May-2018:  Done functional method Buy
  */
 
 class Property : Square
@@ -22,12 +23,13 @@ class Property : Square
         Sold = false;
     }
 
-    public void Buy(Player p)
+    //Add to a player one property
+    public void Buy(Player player,Property prop)
     {
-        NumPropietary = p.Num;
-        Sold = true;
-        p.Money -= Price;
-        p.properties.Add();
+        prop.NumPropietary = player.Num;
+        prop.Sold = true;
+        player.Money -= Price;
+        player.properties.Add(prop);
     }
 }
 

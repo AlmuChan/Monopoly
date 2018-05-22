@@ -4,6 +4,7 @@
  * 0.01, 15-May-2018: Create class, constructor and method ShowMenu
  * 0.02, 18-May-2018: Add money and display it
  */
+
 using System.Collections.Generic;
 
 class Player
@@ -12,7 +13,6 @@ class Player
     public short Pos { get; set; }
     public int Money { get; set; }
     public bool InJail { get; set; }
-    //list of properties of each player
     public List<Property> properties { get; set; }
 
     public Player(short Num)
@@ -43,13 +43,13 @@ class Player
                 0xFF, 0xFA, 0x00, font18);
 
         string text;
-        short count = 0;
+        short y = 200;
         foreach (Property p in properties)
         {
             text = p.Num + "- " + p.Name + ", "+ p.Colour;
-            Hardware.WriteHiddenText(text, 650, 200,
+            Hardware.WriteHiddenText(text, 650, y,
                 0xFF, 0xFA, 0x00, font18);
-            count++;
+            y += 50;
         }
     }
 
