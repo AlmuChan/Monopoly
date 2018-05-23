@@ -37,18 +37,18 @@ class Player
     public void ShowProperties()
     {
         Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
-        Font dont15 = new Font("Fonts/riffic-bold.ttf", 15);
+        Font font15 = new Font("Fonts/riffic-bold.ttf", 15);
 
         Hardware.WriteHiddenText("My Properties:", 650, 200,
                 0xFF, 0xFA, 0x00, font18);
 
         string text;
-        short y = 200;
+        short y = 250;
         foreach (Property p in properties)
         {
             text = p.Num + "- " + p.Name + ", "+ p.Colour;
             Hardware.WriteHiddenText(text, 650, y,
-                0xFF, 0xFA, 0x00, font18);
+                0xFF, 0xFA, 0x00, font15);
             y += 50;
         }
     }

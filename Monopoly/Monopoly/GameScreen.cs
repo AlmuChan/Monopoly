@@ -13,6 +13,7 @@
 using System;
 using Tao.Sdl;
 using System.Collections.Generic;
+using System.Threading;
 
 class GameScreen : Screen
 {
@@ -41,7 +42,7 @@ class GameScreen : Screen
         Player p2 = new Player(2);
         players.Add(p1);
         players.Add(p2);
-        numActualPlayer = players.Count;
+        numActualPlayer = 0;
 
         squares = Square.ReadSquares();
         
@@ -53,6 +54,11 @@ class GameScreen : Screen
     public override void Run()
     {
         drawElements();
+        do
+        {
+            //Wait
+        }
+        while (hardware.KeyPressed(Sdl.SDLK_1));
         do
         {
             ckeckKeys();
@@ -107,7 +113,6 @@ class GameScreen : Screen
                     ((Property)squares[players[numActualPlayer].Pos]).Price +
                     "   Colour: "+ 
                     ((Property)squares[players[numActualPlayer].Pos]).Colour;
-                menuToBuy();
                 break;
             case "Card":
                 line2 = "Type: " + 
@@ -117,6 +122,10 @@ class GameScreen : Screen
         Hardware.WriteHiddenText(line2, 650, 450,
             0xFF, 0xFA, 0x00, font16);
         hardware.ShowHiddenScreen();
+        //If square is a property go to the menu to buy
+        if (squares[players[numActualPlayer].Pos].GetType().ToString()
+                == "Property")
+            menuToBuy();
     }
 
     //Check keys pressed
@@ -210,25 +219,34 @@ class GameScreen : Screen
              0xFF, 0x00, 0x00, font18);
         Hardware.WriteHiddenText("2.- NO", 670, 570,
              0xFF, 0x00, 0x00, font18);
-
+        hardware.ShowHiddenScreen();
+        Thread.Sleep(100); // Provisional
         //Wait to player to choose one option
         bool exit = false;
         do
         {
             if (hardware.KeyPressed(Sdl.SDLK_1))
             {
-                //To add one street to a player's list of properties
-                //in a method "Buy" in a Property's class
-                ((Property)squares[players[numActualPlayer].Pos]).
-                    Buy(players[numActualPlayer],
-                    (Property)squares[players[numActualPlayer].Pos]);
-                exit = true;
+                // if player property dont have owner, player buy it
+                if (((Property)squares[players[numActualPlayer].Pos]).
+                    NumPropietary != 0)
+                {
+                    //To add one street to a player's list of properties
+                    //in a method "Buy" in a Property's class
+                    ((Property)squares[players[numActualPlayer].Pos]).
+                        Buy(players[numActualPlayer],
+                            (Property)squares[players[numActualPlayer].Pos]);
+                    exit = true;
+                }
+                else
+                    exit = true;
+                
             }
             if (hardware.KeyPressed(Sdl.SDLK_2))
                 exit = true;
         }
         while (!exit);
-
+        Console.WriteLine("End");
     }
 
     //Finish turn and change player
@@ -236,6 +254,7 @@ class GameScreen : Screen
     {
         numActualPlayer++;
         if (numActualPlayer >= players.Count)
-            numActualPlayer--;
+            numActualPlayer = 0;
+        drawElements();
     }
 }

@@ -77,6 +77,8 @@ class Square
                             x += 50;
                         else
                             y += 50;
+
+                        count++;
                     }
                 }
                 while (line != null);
