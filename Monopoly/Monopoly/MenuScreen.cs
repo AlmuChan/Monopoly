@@ -36,7 +36,7 @@ class MenuScreen : Screen
         string option3 = " 3.-Credits";
         string option4 = " 4.-Quit";
 
-        Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
+        Font font18 = new Font("Fonts/comic.ttf", 18);
 
         Hardware.WriteHiddenText(option1, 440, 200,
             0xFF, 0xFA, 0x00, font18);
@@ -52,7 +52,12 @@ class MenuScreen : Screen
     private void checkKeys()
     {
         if (hardware.KeyPressed(Sdl.SDLK_1))
+        {
+            NumPlayersScreen nps = new NumPlayersScreen(hardware);
+            nps.Run();
             game.Run();
+        }
+            
         else if (hardware.KeyPressed(Sdl.SDLK_2))
         {
             //To do

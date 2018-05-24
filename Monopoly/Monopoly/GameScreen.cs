@@ -9,6 +9,7 @@
  * 0.04, 18-May-2018: Classify types of squares add method checkSquares
  * 0.05, 22-May-2018: some changes and added methods ChangePlayer
  *      and menuToBuy
+ * 0.06, 24-May-2018: Rent streets
  */
 using System;
 using Tao.Sdl;
@@ -72,7 +73,6 @@ class GameScreen : Screen
         hardware.ClearScreen();
 
         hardware.DrawImage(board);
-        hardware.DrawImage(token.tokenImg);
         showPlayerMenu();
         drawDices();
         writeSquare();
@@ -80,6 +80,7 @@ class GameScreen : Screen
         //Draw totem in a determinate square
         token.tokenImg.MoveTo(squares[players[numActualPlayer].Pos].X,
             squares[players[numActualPlayer].Pos].Y);
+        hardware.DrawImage(token.tokenImg);
 
         hardware.ShowHiddenScreen();
     }
@@ -145,6 +146,9 @@ class GameScreen : Screen
                     Rent;
                 players[numActualPlayer].DecreaseMoney(rent);
                 players[numOwner -1].IncreaseMoney(rent);
+                Hardware.WriteHiddenText("This street have Owner!", 650, 500,
+                    0xFF, 0x00, 0x00, font16);
+                        hardware.ShowHiddenScreen();
             }
                 
         }
