@@ -13,7 +13,6 @@
  */
 using System;
 using Tao.Sdl;
-using System.Collections.Generic;
 using System.Threading;
 
 class GameScreen : Screen
@@ -21,7 +20,7 @@ class GameScreen : Screen
     Image board;
     Dice dice1, dice2;
     Token token;
-    List<Player> players;
+    Player[] players;
     int numActualPlayer;
     bool exit;
     bool isRollDices;
@@ -29,20 +28,24 @@ class GameScreen : Screen
     string[] menu = { "1. Roll Dices", "2. Show propierties",
         "3. Finish turn" };
 
-    public GameScreen(Hardware hardware): base(hardware)
+    public GameScreen(Hardware hardware,short numPlayers): base(hardware)
     {
         board = new Image("Images/board.jpg",600, 600);
         dice1 = new Dice();
         dice2 = new Dice();
         token = new Token();
 
-        //Initialize list of players and add two player
-        //To test (provisional)
-        players = new List<Player>();
-        Player p1 = new Player(1);
-        Player p2 = new Player(2);
-        players.Add(p1);
-        players.Add(p2);
+        //Create num of players have been selected
+        Console.WriteLine("numplayersselected" + numPlayers);
+        players = new Player[numPlayers];
+        for( short i = 0; i < players.Length; i++)
+        {
+            Player p = new Player(i);
+            players[i] = p;
+        }
+        Console.WriteLine("Players:");
+        foreach (Player p in players)
+            Console.WriteLine("p" + p.Num);
         numActualPlayer = 0;
 
         squares = Square.ReadSquares();
@@ -145,7 +148,7 @@ class GameScreen : Screen
                 short rent = ((Property)squares[players[numActualPlayer].Pos]).
                     Rent;
                 players[numActualPlayer].DecreaseMoney(rent);
-                players[numOwner -1].IncreaseMoney(rent);
+                players[numOwner].IncreaseMoney(rent);
                 Hardware.WriteHiddenText("This street have Owner!", 650, 500,
                     0xFF, 0x00, 0x00, font16);
                         hardware.ShowHiddenScreen();
@@ -220,8 +223,9 @@ class GameScreen : Screen
     {
         Font font30 = new Font("Fonts/riffic-bold.ttf", 30);
         Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
-        Hardware.WriteHiddenText("Player " + 
-            players[numActualPlayer].Num, 650, 100,
+        Console.WriteLine("numPlayer :" + numActualPlayer);
+        Hardware.WriteHiddenText("Player " +
+            (players[numActualPlayer].Num+1), 650, 100,
             0xFF, 0x00, 0x00, font30);
 
         Hardware.WriteHiddenText("Money: " + 
@@ -273,7 +277,7 @@ class GameScreen : Screen
     private void changePlayer()
     {
         numActualPlayer++;
-        if (numActualPlayer >= players.Count)
+        if (numActualPlayer >= players.Length)
             numActualPlayer = 0;
         drawElements();
     }

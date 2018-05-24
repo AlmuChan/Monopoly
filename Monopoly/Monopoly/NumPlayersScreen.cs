@@ -8,7 +8,7 @@
 using Tao.Sdl;
 class NumPlayersScreen : Screen
 {
-    public int NumPlayers { get; set; }
+    public short NumPlayers { get; set; }
     bool exit;
 
     public NumPlayersScreen(Hardware hardware) : base(hardware)
@@ -33,7 +33,6 @@ class NumPlayersScreen : Screen
                 exit = true;
         }
         while (!exit);
-        
     }
 
     private void writeText()

@@ -2,12 +2,10 @@
 
 class MenuScreen : Screen
 {
-    GameScreen game;
     private bool exit;
 
     public MenuScreen(Hardware hardware): base(hardware)
     {
-        game = new GameScreen(hardware);
         exit = false;
     }
 
@@ -55,6 +53,7 @@ class MenuScreen : Screen
         {
             NumPlayersScreen nps = new NumPlayersScreen(hardware);
             nps.Run();
+            GameScreen game = new GameScreen(hardware, nps.NumPlayers);
             game.Run();
         }
             

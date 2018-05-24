@@ -14,8 +14,8 @@ class Dice
     public short Y { get; set; }
     public const short WIDTH = 80;
     public const short HEIGHT = 80;
-    Random rnd = new Random();
     public short numDice;
+    Random rnd = new Random();
 
     public Dice()
     {
@@ -35,6 +35,7 @@ class Dice
     {
         numDice = (short)rnd.Next(1, 7);
         X = (short)faces[numDice -1];
+
     }
 }
 
