@@ -12,6 +12,7 @@ class Property : Square
     public string Colour { get; set; }
     public short NumPropietary { get; set; }
     public bool Sold { get; set; }
+    public short Rent { get; set; }
 
     public Property(short Num, short X, short Y, string Name, 
         int Price, string Colour) : base(Num,X,Y,Name)
@@ -21,6 +22,7 @@ class Property : Square
         //starts without owner
         NumPropietary = 0;
         Sold = false;
+        Rent = 100; //To change, only for test
     }
 
     //Add to a player one property

@@ -56,7 +56,7 @@ class GameScreen : Screen
         drawElements();
         do
         {
-            //Wait
+            //Wait user stops press 1
         }
         while (hardware.KeyPressed(Sdl.SDLK_1));
         do
@@ -76,7 +76,11 @@ class GameScreen : Screen
         showPlayerMenu();
         drawDices();
         writeSquare();
-        
+
+        //Draw totem in a determinate square
+        token.tokenImg.MoveTo(squares[players[numActualPlayer].Pos].X,
+            squares[players[numActualPlayer].Pos].Y);
+
         hardware.ShowHiddenScreen();
     }
 
@@ -100,6 +104,7 @@ class GameScreen : Screen
             0xFF, 0xFA, 0x00, font18);
 
         string line2 = " ";
+        bool isProperty = false;
         switch(squares[players[numActualPlayer].Pos].GetType().ToString())
         {
             case "Tax":
@@ -109,6 +114,7 @@ class GameScreen : Screen
                     ((Tax)squares[players[numActualPlayer].Pos]).Price);
                 break;
             case "Property":
+                isProperty = true;
                 line2 = "Price: " + 
                     ((Property)squares[players[numActualPlayer].Pos]).Price +
                     "   Colour: "+ 
@@ -122,10 +128,27 @@ class GameScreen : Screen
         Hardware.WriteHiddenText(line2, 650, 450,
             0xFF, 0xFA, 0x00, font16);
         hardware.ShowHiddenScreen();
-        //If square is a property go to the menu to buy
-        if (squares[players[numActualPlayer].Pos].GetType().ToString()
-                == "Property")
-            menuToBuy();
+
+        //If square is a property and it isnt buy...
+        
+        if (isProperty )
+        {
+            short numOwner = ((Property)squares[players[numActualPlayer].Pos]).
+                NumPropietary;
+            
+            if (numOwner == 0)
+                    menuToBuy();
+            else
+            {
+                //if property has owner, pay him
+                short rent = ((Property)squares[players[numActualPlayer].Pos]).
+                    Rent;
+                players[numActualPlayer].DecreaseMoney(rent);
+                players[numOwner -1].IncreaseMoney(rent);
+            }
+                
+        }
+            
     }
 
     //Check keys pressed
@@ -133,11 +156,13 @@ class GameScreen : Screen
     {
         if (hardware.KeyPressed(Sdl.SDLK_ESCAPE))
             exit = true;
+
         if (hardware.KeyPressed(Sdl.SDLK_1))
             if(!isRollDices)
             {
                 rollDices();
             }
+
         if (hardware.KeyPressed(Sdl.SDLK_2))
         {
             hardware.ClearRightPart();
@@ -155,6 +180,8 @@ class GameScreen : Screen
         {
             isRollDices = false;
             changePlayer();
+            drawElements();
+            Thread.Sleep(1000);
         } 
     }
 
@@ -179,11 +206,8 @@ class GameScreen : Screen
             players[numActualPlayer].IncreaseMoney(200);
         }
 
-        //Move token to new coordinates
-        token.tokenImg.MoveTo(squares[players[numActualPlayer].Pos].X,
-            squares[players[numActualPlayer].Pos].Y);
-
         isRollDices = true;
+
         drawElements();
     }
 
@@ -227,26 +251,18 @@ class GameScreen : Screen
         {
             if (hardware.KeyPressed(Sdl.SDLK_1))
             {
-                // if player property dont have owner, player buy it
-                if (((Property)squares[players[numActualPlayer].Pos]).
-                    NumPropietary != 0)
-                {
-                    //To add one street to a player's list of properties
-                    //in a method "Buy" in a Property's class
-                    ((Property)squares[players[numActualPlayer].Pos]).
-                        Buy(players[numActualPlayer],
-                            (Property)squares[players[numActualPlayer].Pos]);
-                    exit = true;
-                }
-                else
-                    exit = true;
-                
+                //To add one street to a player's list of properties
+                //in a method "Buy" in a Property's class
+                ((Property)squares[players[numActualPlayer].Pos]).
+                    Buy(players[numActualPlayer],
+                        (Property)squares[players[numActualPlayer].Pos]);
+                exit = true;
             }
             if (hardware.KeyPressed(Sdl.SDLK_2))
                 exit = true;
         }
         while (!exit);
-        Console.WriteLine("End");
+        drawElements();
     }
 
     //Finish turn and change player
