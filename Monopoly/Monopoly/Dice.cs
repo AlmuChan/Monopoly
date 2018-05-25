@@ -15,7 +15,7 @@ class Dice
     public const short WIDTH = 80;
     public const short HEIGHT = 80;
     public short numDice;
-    Random rnd = new Random();
+    static Random rnd = new Random();
 
     public Dice()
     {

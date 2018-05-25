@@ -15,6 +15,31 @@ class GameController
         WelcomeScreen welcome = new WelcomeScreen(hardware);
         MenuScreen menu = new MenuScreen(hardware);
         welcome.Run();
-        menu.Run();
+        bool exit = false;
+        do
+        {
+            menu.Run();
+            switch (menu.GetChosenOption())
+            {
+                case MenuScreen.MenuOption.Game:
+                    NumPlayersScreen nps = new NumPlayersScreen(hardware);
+                    nps.Run();
+                    GameScreen game = new GameScreen(hardware, nps.NumPlayers);
+                    game.Run();
+                    break;
+                case MenuScreen.MenuOption.Load:
+                    LoadScreen ls = new LoadScreen(hardware);
+                    ls.Run();
+                    break;
+                case MenuScreen.MenuOption.Credits:
+                    CreditsScreen cs = new CreditsScreen(hardware);
+                    cs.Run();
+                    break;
+                case MenuScreen.MenuOption.Exit:
+                    exit = true;
+                    break;
+            }
+        }
+        while (!exit);
     }
 }

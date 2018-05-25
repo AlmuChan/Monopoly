@@ -55,6 +55,7 @@
     <Compile Include="GameScreen.cs" />
     <Compile Include="Hardware.cs" />
     <Compile Include="Image.cs" />
+    <Compile Include="LoadScreen.cs" />
     <Compile Include="MenuScreen.cs" />
     <Compile Include="Monopoly.cs" />
     <Compile Include="NumPlayersScreen.cs" />
@@ -92,13 +93,25 @@
     <Content Include="Images\board.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\boot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\car.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\dice.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\hat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\houses.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\iron.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ship.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\tittle.png">

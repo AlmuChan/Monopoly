@@ -20,7 +20,7 @@ class Property : Square
         this.Price = Price;
         this.Colour = Colour;
         //starts without owner
-        NumPropietary = 0;
+        NumPropietary = -1;
         Sold = false;
         Rent = 100; //To change, only for test
     }

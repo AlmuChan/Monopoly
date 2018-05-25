@@ -1,27 +1,37 @@
-﻿using Tao.Sdl;
+﻿
+
+using Tao.Sdl;
 
 class MenuScreen : Screen
 {
-    private bool exit;
+    public enum MenuOption { Menu, Game, Load, Credits, Exit };
+    private MenuOption chosenOption;
+    Image background;
+
+    private string[] optionsText = {" 1.-New Game"," 2.-Load Game",
+        " 3.-Credits", " 4.-Quit"};
 
     public MenuScreen(Hardware hardware): base(hardware)
     {
-        exit = false;
+        chosenOption = MenuOption.Menu;
+        background = new Image("Images/background.jpg", 1440, 1000);
     }
 
     public override void Run()
     {
+        chosenOption = MenuOption.Menu;
+        hardware.ClearScreen();
+        drawElements();
         do
         {
-            hardware.ClearScreen();
-            drawElements();
             checkKeys();
         }
-        while (!exit);
+        while (chosenOption == MenuOption.Menu);
     }
 
     private void drawElements()
     {
+        hardware.DrawImage(background);
         writeText();
         hardware.ShowHiddenScreen();
     }
@@ -29,46 +39,33 @@ class MenuScreen : Screen
     //Text
     private void writeText()
     {
-        string option1 = " 1.-New Game";
-        string option2 = " 2.-Load Game";
-        string option3 = " 3.-Credits";
-        string option4 = " 4.-Quit";
-
         Font font18 = new Font("Fonts/comic.ttf", 18);
 
-        Hardware.WriteHiddenText(option1, 440, 200,
-            0xFF, 0xFA, 0x00, font18);
-        Hardware.WriteHiddenText(option2, 440, 250,
-            0xFF, 0xFA, 0x00, font18);
-        Hardware.WriteHiddenText(option3, 440, 300,
-            0xFF, 0xFA, 0x00, font18);
-        Hardware.WriteHiddenText(option4, 440, 350,
-            0xFF, 0xFA, 0x00, font18);
+        for(short i = 0, y = 200; i < optionsText.Length; i++,y += 50)
+        {
+            Hardware.WriteHiddenText(optionsText[i], 440, y,
+                0x00, 0x00, 0x00, font18);
+        }
     }
-
     //Input
     private void checkKeys()
     {
         if (hardware.KeyPressed(Sdl.SDLK_1))
-        {
-            NumPlayersScreen nps = new NumPlayersScreen(hardware);
-            nps.Run();
-            GameScreen game = new GameScreen(hardware, nps.NumPlayers);
-            game.Run();
-        }
-            
+            chosenOption = MenuOption.Game;
+
         else if (hardware.KeyPressed(Sdl.SDLK_2))
-        {
-            //To do
-        }
-        
+            chosenOption = MenuOption.Load;
+
         else if (hardware.KeyPressed(Sdl.SDLK_3))
-        {
-            //To do
-        }
+            chosenOption = MenuOption.Credits;
 
         else if (hardware.KeyPressed(Sdl.SDLK_4))
-            exit = true;
+            chosenOption = MenuOption.Exit;
+    }
+
+    public MenuOption GetChosenOption()
+    {
+        return chosenOption;
     }
 }
 

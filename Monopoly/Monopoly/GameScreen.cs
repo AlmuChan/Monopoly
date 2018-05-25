@@ -24,8 +24,10 @@ class GameScreen : Screen
     int numActualPlayer;
     bool exit;
     bool isRollDices;
+    bool isTax;
+    bool isProperty;
     Square[] squares;
-    string[] menu = { "1. Roll Dices", "2. Show propierties",
+    string[] menu = { "1. Roll Dices", "2. Show properties",
         "3. Finish turn" };
 
     public GameScreen(Hardware hardware,short numPlayers): base(hardware)
@@ -36,16 +38,12 @@ class GameScreen : Screen
         token = new Token();
 
         //Create num of players have been selected
-        Console.WriteLine("numplayersselected" + numPlayers);
         players = new Player[numPlayers];
         for( short i = 0; i < players.Length; i++)
         {
             Player p = new Player(i);
             players[i] = p;
         }
-        Console.WriteLine("Players:");
-        foreach (Player p in players)
-            Console.WriteLine("p" + p.Num);
         numActualPlayer = 0;
 
         squares = Square.ReadSquares();
@@ -65,7 +63,7 @@ class GameScreen : Screen
         while (hardware.KeyPressed(Sdl.SDLK_1));
         do
         {
-            ckeckKeys();
+            ckeckImput();
         }
         while (!exit);
     }
@@ -108,14 +106,14 @@ class GameScreen : Screen
             0xFF, 0xFA, 0x00, font18);
 
         string line2 = " ";
-        bool isProperty = false;
+        isProperty = false;
+        isTax = false;
         switch(squares[players[numActualPlayer].Pos].GetType().ToString())
         {
             case "Tax":
                 line2 = "Price: " + 
                     ((Tax)squares[players[numActualPlayer].Pos]).Price;
-                    players[numActualPlayer].DecreaseMoney(
-                    ((Tax)squares[players[numActualPlayer].Pos]).Price);
+                isTax = true;
                 break;
             case "Property":
                 isProperty = true;
@@ -133,33 +131,22 @@ class GameScreen : Screen
             0xFF, 0xFA, 0x00, font16);
         hardware.ShowHiddenScreen();
 
-        //If square is a property and it isnt buy...
-        
-        if (isProperty )
+
+        if(isProperty && ((Property)squares[players[numActualPlayer].Pos]).Sold)
         {
-            short numOwner = ((Property)squares[players[numActualPlayer].Pos]).
-                NumPropietary;
-            
-            if (numOwner == 0)
-                    menuToBuy();
+            if(numActualPlayer != ((Property)squares[players[numActualPlayer].Pos]).NumPropietary)
+                Hardware.WriteHiddenText("This street has Owner!", 650, 500,
+                        0xFF, 0x00, 0x00, font16);
             else
-            {
-                //if property has owner, pay him
-                short rent = ((Property)squares[players[numActualPlayer].Pos]).
-                    Rent;
-                players[numActualPlayer].DecreaseMoney(rent);
-                players[numOwner].IncreaseMoney(rent);
-                Hardware.WriteHiddenText("This street have Owner!", 650, 500,
-                    0xFF, 0x00, 0x00, font16);
-                        hardware.ShowHiddenScreen();
-            }
-                
+                Hardware.WriteHiddenText("This street is yours!", 650, 500,
+                        0xFF, 0x00, 0x00, font16);
+            hardware.ShowHiddenScreen();
         }
-            
+
     }
 
     //Check keys pressed
-    private void ckeckKeys()
+    private void ckeckImput()
     {
         if (hardware.KeyPressed(Sdl.SDLK_ESCAPE))
             exit = true;
@@ -188,7 +175,7 @@ class GameScreen : Screen
             isRollDices = false;
             changePlayer();
             drawElements();
-            Thread.Sleep(1000);
+            Thread.Sleep(800); // To Change
         } 
     }
 
@@ -214,7 +201,33 @@ class GameScreen : Screen
         }
 
         isRollDices = true;
+        drawElements();
+        checkSquare();
+    }
 
+    public void checkSquare()
+    {
+        //If square is a property and it isnt buy...
+        if (isProperty)
+        {
+            short numOwner = ((Property)squares[players[numActualPlayer].Pos]).
+                NumPropietary;
+
+            if (numOwner == -1)
+                menuToBuy();
+            else
+            {
+                short rent = ((Property)squares[players[numActualPlayer].Pos]).
+                    Rent;
+                players[numActualPlayer].DecreaseMoney(rent);
+                players[numOwner].IncreaseMoney(rent);
+            }
+        }
+        else if(isTax)
+        {
+            players[numActualPlayer].DecreaseMoney(
+                ((Tax)squares[players[numActualPlayer].Pos]).Price);
+        }
         drawElements();
     }
 
@@ -223,7 +236,6 @@ class GameScreen : Screen
     {
         Font font30 = new Font("Fonts/riffic-bold.ttf", 30);
         Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
-        Console.WriteLine("numPlayer :" + numActualPlayer);
         Hardware.WriteHiddenText("Player " +
             (players[numActualPlayer].Num+1), 650, 100,
             0xFF, 0x00, 0x00, font30);
@@ -251,9 +263,9 @@ class GameScreen : Screen
              0xFF, 0x00, 0x00, font18);
         Hardware.WriteHiddenText("2.- NO", 670, 570,
              0xFF, 0x00, 0x00, font18);
-        hardware.ShowHiddenScreen();
         Thread.Sleep(100); // Provisional
         //Wait to player to choose one option
+        hardware.ShowHiddenScreen();
         bool exit = false;
         do
         {
@@ -267,10 +279,13 @@ class GameScreen : Screen
                 exit = true;
             }
             if (hardware.KeyPressed(Sdl.SDLK_2))
+            {
                 exit = true;
+                Thread.Sleep(50);
+            }
         }
         while (!exit);
-        drawElements();
+        
     }
 
     //Finish turn and change player
