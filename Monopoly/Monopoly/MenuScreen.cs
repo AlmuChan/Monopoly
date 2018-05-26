@@ -1,4 +1,8 @@
-﻿
+﻿/*
+ * Almudena López Sánchez 
+ * 
+ * 0.01, 25-May-2018: Added enums
+ */
 
 using Tao.Sdl;
 

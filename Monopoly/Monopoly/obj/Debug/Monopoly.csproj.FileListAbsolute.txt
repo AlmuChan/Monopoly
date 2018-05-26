@@ -1,0 +1,82 @@
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\Monopoly.exe.config
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\Images\board.jpg
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\Images\dice.png
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\Images\iron.png
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\jpeg.dll
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\libfreetype-6.dll
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\libpng12-0.dll
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\libpng12.dll
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\SDL.dll
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\SDL_gfx.dll
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\SDL_image.dll
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\SDL_mixer.dll
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\SDL_ttf.dll
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\Tao.Sdl.dll
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\zlib1.dll
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\Monopoly.exe
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\Monopoly.pdb
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\obj\Debug\Monopoly.csprojResolveAssemblyReference.cache
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\obj\Debug\Monopoly.exe
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\obj\Debug\Monopoly.pdb
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\Fonts\gooddog.otf
+c:\users\alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\Fonts\riffic-bold.ttf
+C:\Users\Alum\documents\visual studio 2015\Projects\Monopoly\Monopoly\bin\Debug\Files\Squares.txt
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\Files\Squares.txt
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\Images\board.jpg
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\Images\dice.png
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\Images\iron.png
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\Images\WelcomeScreen.jpg
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\jpeg.dll
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\libfreetype-6.dll
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\libpng12-0.dll
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\libpng12.dll
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\SDL.dll
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\SDL_gfx.dll
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\SDL_image.dll
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\SDL_mixer.dll
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\SDL_ttf.dll
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\Tao.Sdl.dll
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\zlib1.dll
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\Fonts\gooddog.otf
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\Fonts\riffic-bold.ttf
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\Monopoly.exe.config
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\Monopoly.exe
+C:\Users\toni\Desktop\Monopoly\Monopoly\bin\Debug\Monopoly.pdb
+C:\Users\toni\Desktop\Monopoly\Monopoly\obj\Debug\Monopoly.csprojAssemblyReference.cache
+C:\Users\toni\Desktop\Monopoly\Monopoly\obj\Debug\Monopoly.csproj.CoreCompileInputs.cache
+C:\Users\toni\Desktop\Monopoly\Monopoly\obj\Debug\Monopoly.csproj.CopyComplete
+C:\Users\toni\Desktop\Monopoly\Monopoly\obj\Debug\Monopoly.exe
+C:\Users\toni\Desktop\Monopoly\Monopoly\obj\Debug\Monopoly.pdb
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Monopoly.exe.config
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\obj\Debug\Monopoly.exe
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\obj\Debug\Monopoly.pdb
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\obj\Debug\Monopoly.csprojResolveAssemblyReference.cache
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Files\Squares.txt
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\board.jpg
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\dice.png
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\iron.png
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\WelcomeScreen.jpg
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\jpeg.dll
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\libfreetype-6.dll
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\libpng12-0.dll
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\libpng12.dll
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\SDL.dll
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\SDL_gfx.dll
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\SDL_image.dll
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\SDL_mixer.dll
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\SDL_ttf.dll
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Tao.Sdl.dll
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\zlib1.dll
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Fonts\gooddog.otf
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Fonts\riffic-bold.ttf
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Monopoly.exe
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Monopoly.pdb
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Fonts\comic.ttf
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\houses.png
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Fonts\GleamComic.ttf
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\tittle.png
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\background.jpg
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\boot.png
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\car.png
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\hat.png
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\ship.png

@@ -20,6 +20,7 @@ class GameScreen : Screen
     Image board;
     Dice dice1, dice2;
     Token token;
+    Square actualSquare;
     Player[] players;
     int numActualPlayer;
     bool exit;
@@ -47,6 +48,7 @@ class GameScreen : Screen
         numActualPlayer = 0;
 
         squares = Square.ReadSquares();
+        actualSquare = squares[0];
         
         isRollDices = false;
         exit = false;
@@ -58,7 +60,7 @@ class GameScreen : Screen
         drawElements();
         do
         {
-            //Wait user stops press 1
+            Thread.Sleep(10);
         }
         while (hardware.KeyPressed(Sdl.SDLK_1));
         do
@@ -76,11 +78,14 @@ class GameScreen : Screen
         hardware.DrawImage(board);
         showPlayerMenu();
         drawDices();
+
+        //Update square
+        actualSquare = squares[players[numActualPlayer].Pos];
         writeSquare();
 
         //Draw totem in a determinate square
-        token.tokenImg.MoveTo(squares[players[numActualPlayer].Pos].X,
-            squares[players[numActualPlayer].Pos].Y);
+        token.tokenImg.MoveTo(actualSquare.X,
+            actualSquare.Y);
         hardware.DrawImage(token.tokenImg);
 
         hardware.ShowHiddenScreen();
@@ -101,30 +106,32 @@ class GameScreen : Screen
     {
         Font font16 = new Font("Fonts/riffic-bold.ttf", 16);
         Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
-        Hardware.WriteHiddenText(squares[players[numActualPlayer].Pos].Num 
-            + " - "+ squares[players[numActualPlayer].Pos].Name, 650, 400,
+        Hardware.WriteHiddenText(actualSquare.Num 
+            + " - "+ actualSquare.Name, 650, 400,
             0xFF, 0xFA, 0x00, font18);
 
         string line2 = " ";
         isProperty = false;
         isTax = false;
-        switch(squares[players[numActualPlayer].Pos].GetType().ToString())
+        if (actualSquare is Tax) ;
+
+        switch (actualSquare.GetType().ToString())
         {
             case "Tax":
                 line2 = "Price: " + 
-                    ((Tax)squares[players[numActualPlayer].Pos]).Price;
+                    ((Tax)actualSquare).Price;
                 isTax = true;
                 break;
             case "Property":
                 isProperty = true;
                 line2 = "Price: " + 
-                    ((Property)squares[players[numActualPlayer].Pos]).Price +
+                    ((Property)actualSquare).Price +
                     "   Colour: "+ 
-                    ((Property)squares[players[numActualPlayer].Pos]).Colour;
+                    ((Property)actualSquare).Colour;
                 break;
             case "Card":
                 line2 = "Type: " + 
-                    ((Card)squares[players[numActualPlayer].Pos]).Type;
+                    ((Card)actualSquare).Type;
                 break;
         }
         Hardware.WriteHiddenText(line2, 650, 450,
@@ -132,9 +139,9 @@ class GameScreen : Screen
         hardware.ShowHiddenScreen();
 
 
-        if(isProperty && ((Property)squares[players[numActualPlayer].Pos]).Sold)
+        if(isProperty && ((Property)actualSquare).Sold)
         {
-            if(numActualPlayer != ((Property)squares[players[numActualPlayer].Pos]).NumPropietary)
+            if(numActualPlayer != ((Property)actualSquare).NumPropietary)
                 Hardware.WriteHiddenText("This street has Owner!", 650, 500,
                         0xFF, 0x00, 0x00, font16);
             else
@@ -210,14 +217,14 @@ class GameScreen : Screen
         //If square is a property and it isnt buy...
         if (isProperty)
         {
-            short numOwner = ((Property)squares[players[numActualPlayer].Pos]).
+            short numOwner = ((Property)actualSquare).
                 NumPropietary;
 
             if (numOwner == -1)
                 menuToBuy();
             else
             {
-                short rent = ((Property)squares[players[numActualPlayer].Pos]).
+                short rent = ((Property)actualSquare).
                     Rent;
                 players[numActualPlayer].DecreaseMoney(rent);
                 players[numOwner].IncreaseMoney(rent);
@@ -226,7 +233,7 @@ class GameScreen : Screen
         else if(isTax)
         {
             players[numActualPlayer].DecreaseMoney(
-                ((Tax)squares[players[numActualPlayer].Pos]).Price);
+                ((Tax)actualSquare).Price);
         }
         drawElements();
     }
@@ -273,9 +280,9 @@ class GameScreen : Screen
             {
                 //To add one street to a player's list of properties
                 //in a method "Buy" in a Property's class
-                ((Property)squares[players[numActualPlayer].Pos]).
+                ((Property)actualSquare).
                     Buy(players[numActualPlayer],
-                        (Property)squares[players[numActualPlayer].Pos]);
+                        (Property)actualSquare);
                 exit = true;
             }
             if (hardware.KeyPressed(Sdl.SDLK_2))
