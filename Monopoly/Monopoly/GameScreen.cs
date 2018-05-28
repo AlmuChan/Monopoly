@@ -54,7 +54,6 @@ class GameScreen : Screen
         
         isRollDices = false;
         exit = false;
-        
     }
     
     public override void Run()
@@ -116,7 +115,7 @@ class GameScreen : Screen
         string line2 = " ";
         isProperty = false;
         isTax = false;
-        if (actualSquare is Tax) ;
+        //if (actualSquare is Tax) ;
 
         switch (actualSquare.GetType().ToString())
         {

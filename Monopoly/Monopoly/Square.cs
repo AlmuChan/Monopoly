@@ -34,7 +34,7 @@ class Square
             try
             {
 
-                StreamReader sw = new StreamReader("Files/Squares.txt");
+                StreamReader sr = new StreamReader("Files/Squares.txt");
                 string line;
                 //Initialize x and y positions for square
                 short x = 530;
@@ -42,7 +42,7 @@ class Square
                 short count = 0;
                 do
                 {
-                    line = sw.ReadLine();
+                    line = sr.ReadLine();
                     if (line != null)
                     {
 
@@ -54,15 +54,15 @@ class Square
                         switch (words.Length)
                         {
                             case 4:
-                                s = new Property((short)(i), x, y, name + " P",
+                                s = new Property((short)(i), x, y, name,
                                     Convert.ToInt32(words[2]), words[3]);
                                 break;
                             case 3:
                                 if (words[2] != "CC" && words[2] != "C")
-                                    s = new Tax((short)(i), x, y, name + " T",
+                                    s = new Tax((short)(i), x, y, name,
                                         Convert.ToInt32(words[2]));
                                 else
-                                    s = new Card((short)(i), x, y, name + " C",
+                                    s = new Card((short)(i), x, y, name,
                                         words[2]);
                                 break;
                         }
@@ -82,7 +82,7 @@ class Square
                     }
                 }
                 while (line != null);
-                sw.Close();
+                sr.Close();
                 return squares;
             }
             catch (PathTooLongException)
