@@ -10,10 +10,12 @@
  * 0.05, 22-May-2018: some changes and added methods ChangePlayer
  *      and menuToBuy
  * 0.06, 24-May-2018: Rent streets
+ * 0.07, 28-May-2018: Added SaveGame
  */
 using System;
 using Tao.Sdl;
 using System.Threading;
+using System.IO;
 
 class GameScreen : Screen
 {
@@ -68,6 +70,7 @@ class GameScreen : Screen
             ckeckImput();
         }
         while (!exit);
+        saveGame();
     }
 
     //Display all elements in the screen
@@ -302,5 +305,44 @@ class GameScreen : Screen
         if (numActualPlayer >= players.Length)
             numActualPlayer = 0;
         drawElements();
+    }
+
+    private void saveGame()
+    {
+        try
+        {
+            StreamWriter sw = new StreamWriter("Files/Saved.txt");
+            string line;
+            for(int i = 0; i < players.Length; i++)
+            {
+                line = players[i].Num.ToString() + "-" +
+                    players[i].Pos.ToString() + "-" +
+                    players[i].Money.ToString() + "-" +
+                    players[i].InJail + "-";
+                for(int j = 0; j < players[i].properties.Count; j++)
+                { 
+                    line += players[i].properties[j].Name;
+                    line += ";";
+                }
+                sw.WriteLine(line);
+            }
+            sw.Close(); 
+        }
+        catch (PathTooLongException)
+        {
+            Console.WriteLine("Path too long");
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("File not accessible");
+        }
+        catch (IOException e)
+        {
+            Console.WriteLine("I/O error: " + e.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Oooops... " + e.Message);
+        }
     }
 }
