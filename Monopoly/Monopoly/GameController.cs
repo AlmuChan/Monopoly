@@ -24,7 +24,7 @@ class GameController
                 case MenuScreen.MenuOption.Game:
                     NumPlayersScreen nps = new NumPlayersScreen(hardware);
                     nps.Run();
-                    GameScreen game = new GameScreen(hardware, nps.NumPlayers);
+                    GameScreen game = new GameScreen(hardware, nps.NumPlayers,nps.NumsToken);
                     game.Run();
                     break;
                 case MenuScreen.MenuOption.Load:

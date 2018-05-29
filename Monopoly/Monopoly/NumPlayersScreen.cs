@@ -10,7 +10,7 @@ using Tao.Sdl;
 class NumPlayersScreen : Screen
 {
     public short NumPlayers { get; set; }
-    
+    public short[] NumsToken { get; set; }
     bool exit;
     Image background;
     Image arrow;
@@ -70,6 +70,7 @@ class NumPlayersScreen : Screen
         while (!exit);
         //To choose token
         exit = false;
+        NumsToken = new short[NumPlayers];
         byte numPlayer = 1;
         do
         {
@@ -84,10 +85,31 @@ class NumPlayersScreen : Screen
             int key = hardware.KeyPressed();
             if (key == Hardware.KEY_SPACE)
             {
-                if (numPlayer == NumPlayers)
+                if (numPlayer > NumPlayers)
                     exit = true;
                 else
                 {
+                    //To know num of token with position of arrow
+                    short token = 0; 
+                    switch(xArrow)
+                    {
+                        case 360:
+                            token = 1;
+                            break;
+                        case 440:
+                            token = 2;
+                            break;
+                        case 520:
+                            token = 3;
+                            break;
+                        case 600:
+                            token = 4;
+                            break;
+                        case 680:
+                            token = 5;
+                            break;
+                    }
+                    NumsToken[numPlayer - 1] = token;
                     numPlayer++;
                 }
             }
@@ -103,7 +125,7 @@ class NumPlayersScreen : Screen
                 if (xArrow > 360)
                     xArrow -= 80;
             }
-            //if (key == Hardware.KEY_ESC) TO DO  
+            //if (key == Hardware.KEY_ESC) TO DO 
         }
         while (!exit);
     }

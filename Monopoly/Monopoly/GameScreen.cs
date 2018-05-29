@@ -21,7 +21,6 @@ class GameScreen : Screen
 {
     Image board;
     Dice dice1, dice2;
-    Token token;
     Square actualSquare;
     Player[] players;
     int numActualPlayer;
@@ -33,18 +32,18 @@ class GameScreen : Screen
     string[] menu = { "1. Roll Dices", "2. Show properties",
         "3. Finish turn" };
 
-    public GameScreen(Hardware hardware,short numPlayers): base(hardware)
+    public GameScreen(Hardware hardware,short numPlayers,
+        short[] tokensChoosen): base(hardware)
     {
         board = new Image("Images/board.jpg",600, 600);
         dice1 = new Dice();
         dice2 = new Dice();
-        token = new Token();
 
         //Create num of players have been selected
         players = new Player[numPlayers];
         for( short i = 0; i < players.Length; i++)
         {
-            Player p = new Player(i);
+            Player p = new Player(i,new Token(tokensChoosen[i]));
             players[i] = p;
         }
         numActualPlayer = 0;
@@ -86,9 +85,9 @@ class GameScreen : Screen
         writeSquare();
 
         //Draw totem in a determinate square
-        token.tokenImg.MoveTo(actualSquare.X,
-            actualSquare.Y);
-        hardware.DrawImage(token.tokenImg);
+        players[numActualPlayer].tokenChoosen.tokenImg.MoveTo(
+            actualSquare.X, actualSquare.Y);
+        hardware.DrawImage(players[numActualPlayer].tokenChoosen.tokenImg);
 
         hardware.ShowHiddenScreen();
     }
