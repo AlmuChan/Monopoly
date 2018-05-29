@@ -80,3 +80,4 @@ C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Imag
 C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\car.png
 C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\hat.png
 C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\ship.png
+C:\Users\Alum\Documents\DAM\MONOPOLY\MonopolyGH\Monopoly\Monopoly\bin\Debug\Images\arrowRed.png

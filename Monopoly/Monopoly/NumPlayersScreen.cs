@@ -3,21 +3,36 @@
  * Almudena López Sánchez 2018
  * 
  * 0.01, 24-May-2018: Create class
+ * 0.02. 29-May-2018: Added move and draw arrow
  */
 
 using Tao.Sdl;
 class NumPlayersScreen : Screen
 {
     public short NumPlayers { get; set; }
+    
     bool exit;
     Image background;
+    Image arrow;
+    short xArrow;
     Image car, boot, hat, iron, ship;
+    Font font20;
+    Font font25;
+
 
     public NumPlayersScreen(Hardware hardware) : base(hardware)
     {
+        //Fonts
+        font20 = new Font("Fonts/riffic-bold.ttf", 20);
+        font25 = new Font("Fonts/comic.ttf", 25);
+
         NumPlayers = 2;
         exit = false;
         background = new Image("Images/background.jpg", 1440, 1000);
+        arrow = new Image("Images/arrowRed.png",19,100);
+        xArrow = 360;
+        arrow.MoveTo(xArrow, 400);
+        
         //Future array
         iron = new Image("Images/iron.png", 50, 50);
         iron.MoveTo(340, 350);
@@ -33,12 +48,13 @@ class NumPlayersScreen : Screen
 
     public override void Run()
     {
+        //To choose num players
         do
         {
             hardware.ClearScreen();
             hardware.DrawImage(background);
             writeText();
-            drawTokens();
+            
             hardware.ShowHiddenScreen();
 
             if (hardware.KeyPressed(Sdl.SDLK_2))
@@ -49,17 +65,51 @@ class NumPlayersScreen : Screen
                 NumPlayers = 4;
             if (hardware.KeyPressed(Sdl.SDLK_SPACE))
                 exit = true;
-            //if (hardware.KeyPressed(Sdl.SDLK_ESCAPE)) TO DO
+            //if (hardware.KeyPressed(Sdl.SDLK_ESCAPE)) TO DO  
+        }
+        while (!exit);
+        //To choose token
+        exit = false;
+        byte numPlayer = 1;
+        do
+        {
+            hardware.ClearScreen();
+            hardware.DrawImage(background);
+            writeText();
+            Hardware.WriteHiddenText("Player "+numPlayer, 50, 400,
+                0xFF, 0x00, 0x00, font20);
+            drawTokens();
+            hardware.ShowHiddenScreen();
+
+            int key = hardware.KeyPressed();
+            if (key == Hardware.KEY_SPACE)
+            {
+                if (numPlayer == NumPlayers)
+                    exit = true;
+                else
+                {
+                    numPlayer++;
+                }
+            }
                 
+            //To move arrow 
+            else if (key == Hardware.KEY_RIGHT)
+            {
+                if (xArrow < 640)
+                    xArrow += 80;
+            }
+            else if (key == Hardware.KEY_LEFT)
+            {
+                if (xArrow > 360)
+                    xArrow -= 80;
+            }
+            //if (key == Hardware.KEY_ESC) TO DO  
         }
         while (!exit);
     }
 
     private void writeText()
     {
-        Font font20 = new Font("Fonts/riffic-bold.ttf", 20);
-        Font font25 = new Font("Fonts/comic.ttf", 25);
-
         Hardware.WriteHiddenText("Number of Players?", 400, 150,
             0xFF, 0x00, 0x00, font20);
 
@@ -76,5 +126,7 @@ class NumPlayersScreen : Screen
         hardware.DrawImage(car);
         hardware.DrawImage(iron);
         hardware.DrawImage(ship);
+        hardware.DrawImage(arrow);
+        arrow.MoveTo(xArrow, 400);
     }
 }

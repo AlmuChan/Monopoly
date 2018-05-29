@@ -15,6 +15,8 @@ class Hardware
 
     public const int KEY_SPACE = Sdl.SDLK_SPACE;
     public const int KEY_ESC = Sdl.SDLK_ESCAPE;
+    public const int KEY_RIGHT = Sdl.SDLK_RIGHT;
+    public const int KEY_LEFT = Sdl.SDLK_LEFT;
     public const int KEY_1 = Sdl.SDLK_1;
     public const int KEY_2 = Sdl.SDLK_2;
     public const int KEY_3 = Sdl.SDLK_3;
@@ -68,7 +70,7 @@ class Hardware
         Sdl.SDL_Flip(hiddenScreen);
     }
 
-    // Detects if the user presses a key
+    // Detects if the user presses a determinate key
     public bool KeyPressed(int c)
     {
         bool pressed = false;
@@ -79,6 +81,24 @@ class Hardware
         byte[] keys = Tao.Sdl.Sdl.SDL_GetKeyState(out numkeys);
         if (keys[c] == 1)
             pressed = true;
+        return pressed;
+    }
+
+    //Detects if the user presses a key
+    public int KeyPressed()
+    {
+        int pressed = -1;
+
+        Sdl.SDL_PumpEvents();
+        Sdl.SDL_Event keyEvent;
+        if (Sdl.SDL_PollEvent(out keyEvent) == 1)
+        {
+            if (keyEvent.type == Sdl.SDL_KEYDOWN)
+            {
+                pressed = keyEvent.key.keysym.sym;
+            }
+        }
+
         return pressed;
     }
 

@@ -17,5 +17,6 @@ class Token
         X = Y = 530;
         tokenImg.MoveTo(X, Y);
     }
+
 }
 
