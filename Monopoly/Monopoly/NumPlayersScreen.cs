@@ -113,7 +113,7 @@ class NumPlayersScreen : Screen
                     numPlayer++;
                 }
             }
-                
+            
             //To move arrow 
             else if (key == Hardware.KEY_RIGHT)
             {

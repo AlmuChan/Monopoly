@@ -48,6 +48,9 @@ class GameScreen : Screen
         }
         numActualPlayer = 0;
 
+        //To change
+        players[1].InJail = true;
+
         squares = Square.ReadSquares();
         actualSquare = squares[0];
         
@@ -162,7 +165,20 @@ class GameScreen : Screen
         if (hardware.KeyPressed(Sdl.SDLK_1))
             if(!isRollDices)
             {
-                rollDices();
+                if(players[numActualPlayer].countJail > 2 )
+                {
+                    players[numActualPlayer].countJail = 0;
+                    players[numActualPlayer].InJail = false;
+                }
+
+                if (!players[numActualPlayer].InJail)
+                {
+                    rollDices();
+                }
+                else
+                    players[numActualPlayer].countJail += 1;
+
+                isRollDices = true;
             }
 
         if (hardware.KeyPressed(Sdl.SDLK_2))
@@ -207,8 +223,7 @@ class GameScreen : Screen
             players[numActualPlayer].Pos -= 40;
             players[numActualPlayer].IncreaseMoney(200);
         }
-
-        isRollDices = true;
+        
         drawElements();
         checkSquare();
     }
@@ -222,7 +237,7 @@ class GameScreen : Screen
                 NumPropietary;
 
             if (numOwner == -1)
-                menuToBuy();
+                 menuToBuy();
             else
             {
                 short rent = ((Property)actualSquare).
@@ -236,6 +251,12 @@ class GameScreen : Screen
             players[numActualPlayer].DecreaseMoney(
                 ((Tax)actualSquare).Price);
         }
+        else if(actualSquare.Name == "go to jail")
+        {
+            players[numActualPlayer].InJail = true;
+            players[numActualPlayer].Pos = 10;
+        }
+
         drawElements();
     }
 
@@ -257,6 +278,13 @@ class GameScreen : Screen
             Hardware.WriteHiddenText(menu[i], 650, y,
                 0xFF, 0xFA, 0x00, font18);
             y += 50;
+        }
+
+        if (players[numActualPlayer].InJail)
+        {
+            Hardware.WriteHiddenText("-IN JAIL-" +
+            players[numActualPlayer].Money, 700, 600,
+            0xFF, 0x00, 0x00, font18);
         }
     }
 
@@ -311,15 +339,15 @@ class GameScreen : Screen
         {
             StreamWriter sw = new StreamWriter("Files/Saved.txt");
             string line;
-            for(int i = 0; i < players.Length; i++)
+            foreach( Player p in players)
             {
-                line = players[i].Num.ToString() + "-" +
-                    players[i].Pos.ToString() + "-" +
-                    players[i].Money.ToString() + "-" +
-                    players[i].InJail + "-";
-                for(int j = 0; j < players[i].properties.Count; j++)
+                line = p.Num.ToString() + "-" +
+                    p.Pos.ToString() + "-" +
+                    p.Money.ToString() + "-" +
+                    p.InJail + "-";
+                for(int j = 0; j < p.properties.Count; j++)
                 { 
-                    line += players[i].properties[j].Name;
+                    line += p.properties[j].Name;
                     line += ";";
                 }
                 sw.WriteLine(line);

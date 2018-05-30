@@ -14,6 +14,8 @@ class Player
     public short Pos { get; set; }
     public int Money { get; set; }
     public bool InJail { get; set; }
+    public bool AI { get; set; }
+    public short countJail { get; set; }
     public List<Property> properties { get; set; }
     public Token tokenChoosen { get; set; }
 
@@ -24,6 +26,7 @@ class Player
         Pos = 0;
         Money = 2000;
         InJail = false;
+        countJail = 0;
         properties = new List<Property>();
     }
 

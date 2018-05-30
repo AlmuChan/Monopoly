@@ -15,7 +15,6 @@ class Dice
     public const short WIDTH = 80;
     public const short HEIGHT = 80;
     public short numDice;
-    static Random rnd = new Random();
 
     public Dice()
     {
@@ -33,7 +32,7 @@ class Dice
     //Calculate a new random number and change position X
     public void Throw()
     {
-        numDice = (short)rnd.Next(1, 7);
+        numDice = (short)Hardware.NextRandom(1,7);
         X = (short)faces[numDice -1];
 
     }

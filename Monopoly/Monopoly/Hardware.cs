@@ -3,6 +3,7 @@
  * 
  * 0.01, 14-May-2018: Initial version, based on Saboteur and Gauntlet
  * 0.02, 22-May-2018: Added a new method 
+ * 0.03, 30-May-2018: Added method NextRandom
  */
 
 using System;
@@ -27,6 +28,12 @@ class Hardware
     public const int KEY_8 = Sdl.SDLK_8;
     public const int KEY_9 = Sdl.SDLK_9;
     public const int KEY_0 = Sdl.SDLK_0;
+    static Random rnd = new Random();
+
+    public static int NextRandom(int n1, int n2)
+    {
+        return rnd.Next(n1, n2); ;
+    }
 
     public Hardware(short Width, short Height, short depth, bool fullScreen)
     {
