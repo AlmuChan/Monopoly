@@ -7,6 +7,7 @@
  */
 
 using Tao.Sdl;
+using System.Collections.Generic;
 class NumPlayersScreen : Screen
 {
     public short NumPlayers { get; set; }
@@ -18,7 +19,8 @@ class NumPlayersScreen : Screen
     Image car, boot, hat, iron, ship;
     Font font20;
     Font font25;
-
+    public static bool[] IsIA { get; set; }
+    private int key;
 
     public NumPlayersScreen(Hardware hardware) : base(hardware)
     {
@@ -71,7 +73,10 @@ class NumPlayersScreen : Screen
         //To choose token
         exit = false;
         NumsToken = new short[NumPlayers];
+        IsIA = new bool[NumPlayers];
         byte numPlayer = 1;
+        bool selectedIA;
+
         do
         {
             hardware.ClearScreen();
@@ -79,10 +84,15 @@ class NumPlayersScreen : Screen
             writeText();
             Hardware.WriteHiddenText("Player "+numPlayer, 50, 400,
                 0xFF, 0x00, 0x00, font20);
+
+            /* TO CHANGE
+            if(IsIA.Length != numPlayer)
+                IsIA[numPlayer - 1] = selectIA(numPlayer*/
+
             drawTokens();
             hardware.ShowHiddenScreen();
 
-            int key = hardware.KeyPressed();
+            key = hardware.KeyPressed();
             if (key == Hardware.KEY_SPACE)
             {
                 if (numPlayer > NumPlayers)
@@ -130,8 +140,35 @@ class NumPlayersScreen : Screen
         while (!exit);
     }
 
+    private bool selectIA(short numPlayer)
+    {
+        bool option = false;
+        do
+        {
+            Hardware.WriteHiddenText("1.- CPU" + numPlayer, 50, 450,
+                0xFF, 0x00, 0x00, font20);
+            Hardware.WriteHiddenText("2.- Player" + numPlayer, 50, 500,
+               0xFF, 0x00, 0x00, font20);
+
+            hardware.ShowHiddenScreen();
+
+            key = hardware.KeyPressed();
+            if (key == Hardware.KEY_1)
+            {
+                 option = true;
+            }
+            else if (key == Hardware.KEY_2)
+            {
+                option = false;
+            }
+        }
+        while (key != Hardware.KEY_1 && key != Hardware.KEY_2);
+        return option;
+    }
+
     private void writeText()
     {
+        
         Hardware.WriteHiddenText("Number of Players?", 400, 150,
             0xFF, 0x00, 0x00, font20);
 

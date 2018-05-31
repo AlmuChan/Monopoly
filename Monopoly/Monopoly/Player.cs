@@ -19,7 +19,7 @@ class Player
     public List<Property> properties { get; set; }
     public Token tokenChoosen { get; set; }
 
-    public Player(short Num,Token tokenChoosen)
+    public Player(short Num,Token tokenChoosen,bool AI)
     {
         this.tokenChoosen = tokenChoosen;
         this.Num = Num;
@@ -27,6 +27,7 @@ class Player
         Money = 2000;
         InJail = false;
         countJail = 0;
+        this.AI = AI;
         properties = new List<Property>();
     }
 

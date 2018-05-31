@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
+    <Compile Include="ChangeLenguageScreen.cs" />
     <Compile Include="CreditsScreen.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Font.cs" />

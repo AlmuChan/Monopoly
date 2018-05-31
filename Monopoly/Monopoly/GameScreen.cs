@@ -11,6 +11,7 @@
  *      and menuToBuy
  * 0.06, 24-May-2018: Rent streets
  * 0.07, 28-May-2018: Added SaveGame
+ * 0.08, 30-May-2018: Added logical of jail
  */
 using System;
 using Tao.Sdl;
@@ -43,7 +44,8 @@ class GameScreen : Screen
         players = new Player[numPlayers];
         for( short i = 0; i < players.Length; i++)
         {
-            Player p = new Player(i,new Token(tokensChoosen[i]));
+            Player p = new Player(i,new Token(tokensChoosen[i]),
+                NumPlayersScreen.IsIA[i]);
             players[i] = p;
         }
         numActualPlayer = 0;

@@ -24,7 +24,8 @@ class GameController
                 case MenuScreen.MenuOption.Game:
                     NumPlayersScreen nps = new NumPlayersScreen(hardware);
                     nps.Run();
-                    GameScreen game = new GameScreen(hardware, nps.NumPlayers,nps.NumsToken);
+                    GameScreen game = new GameScreen(hardware, 
+                        nps.NumPlayers,nps.NumsToken);
                     game.Run();
                     break;
                 case MenuScreen.MenuOption.Load:
@@ -34,6 +35,11 @@ class GameController
                 case MenuScreen.MenuOption.Credits:
                     CreditsScreen cs = new CreditsScreen(hardware);
                     cs.Run();
+                    break;
+                case MenuScreen.MenuOption.ChangeLenguage:
+                    ChangeLenguageScreen cls = 
+                        new ChangeLenguageScreen(hardware);
+                    cls.Run();
                     break;
                 case MenuScreen.MenuOption.Exit:
                     exit = true;
