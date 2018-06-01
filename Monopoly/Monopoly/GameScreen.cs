@@ -50,9 +50,6 @@ class GameScreen : Screen
         }
         numActualPlayer = 0;
 
-        //To change
-        players[1].InJail = true;
-
         squares = Square.ReadSquares();
         actualSquare = squares[0];
         
@@ -112,14 +109,12 @@ class GameScreen : Screen
     {
         Font font16 = new Font("Fonts/riffic-bold.ttf", 16);
         Font font18 = new Font("Fonts/riffic-bold.ttf", 18);
-        Hardware.WriteHiddenText(actualSquare.Num 
-            + " - "+ actualSquare.Name, 650, 400,
+        Hardware.WriteHiddenText(actualSquare.Name, 650, 400,
             0xFF, 0xFA, 0x00, font18);
 
         string line2 = " ";
         isProperty = false;
         isTax = false;
-        //if (actualSquare is Tax) ;
 
         switch (actualSquare.GetType().ToString())
         {

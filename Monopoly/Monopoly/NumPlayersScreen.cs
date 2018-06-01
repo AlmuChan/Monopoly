@@ -3,7 +3,8 @@
  * Almudena López Sánchez 2018
  * 
  * 0.01, 24-May-2018: Create class
- * 0.02. 29-May-2018: Added move and draw arrow
+ * 0.02, 29-May-2018: Added move and draw arrow
+ * 0.03, 01-Jun-2018: Added selected IA
  */
 
 using Tao.Sdl;
@@ -19,7 +20,7 @@ class NumPlayersScreen : Screen
     Image car, boot, hat, iron, ship;
     Font font20;
     Font font25;
-    public static bool[] IsIA { get; set; }
+    public static List<bool> IsIA { get; set; }
     private int key;
 
     public NumPlayersScreen(Hardware hardware) : base(hardware)
@@ -73,21 +74,23 @@ class NumPlayersScreen : Screen
         //To choose token
         exit = false;
         NumsToken = new short[NumPlayers];
-        IsIA = new bool[NumPlayers];
-        byte numPlayer = 1;
-        bool selectedIA;
+        IsIA = new List<bool>();
+        short numPlayer = 1;
 
         do
         {
             hardware.ClearScreen();
             hardware.DrawImage(background);
             writeText();
-            Hardware.WriteHiddenText("Player "+numPlayer, 50, 400,
-                0xFF, 0x00, 0x00, font20);
 
-            /* TO CHANGE
-            if(IsIA.Length != numPlayer)
-                IsIA[numPlayer - 1] = selectIA(numPlayer*/
+            if (numPlayer <= NumPlayers)
+                Hardware.WriteHiddenText("Player "+numPlayer, 50, 400,
+                    0xFF, 0x00, 0x00, font20);
+
+            if (IsIA.Count != numPlayer && numPlayer <= NumPlayers)
+            {
+                IsIA.Add(selectIA());
+            }    
 
             drawTokens();
             hardware.ShowHiddenScreen();
@@ -123,7 +126,6 @@ class NumPlayersScreen : Screen
                     numPlayer++;
                 }
             }
-            
             //To move arrow 
             else if (key == Hardware.KEY_RIGHT)
             {
@@ -135,19 +137,19 @@ class NumPlayersScreen : Screen
                 if (xArrow > 360)
                     xArrow -= 80;
             }
-            //if (key == Hardware.KEY_ESC) TO DO 
         }
         while (!exit);
     }
 
-    private bool selectIA(short numPlayer)
+    private bool selectIA()
     {
+        bool exit = false;
         bool option = false;
         do
         {
-            Hardware.WriteHiddenText("1.- CPU" + numPlayer, 50, 450,
+            Hardware.WriteHiddenText("1.- CPU", 50, 450,
                 0xFF, 0x00, 0x00, font20);
-            Hardware.WriteHiddenText("2.- Player" + numPlayer, 50, 500,
+            Hardware.WriteHiddenText("2.- Player", 50, 500,
                0xFF, 0x00, 0x00, font20);
 
             hardware.ShowHiddenScreen();
@@ -155,20 +157,21 @@ class NumPlayersScreen : Screen
             key = hardware.KeyPressed();
             if (key == Hardware.KEY_1)
             {
-                 option = true;
+                option = true;
+                exit = true;
             }
             else if (key == Hardware.KEY_2)
             {
                 option = false;
+                exit = true;
             }
         }
-        while (key != Hardware.KEY_1 && key != Hardware.KEY_2);
+        while (!exit);
         return option;
     }
 
     private void writeText()
     {
-        
         Hardware.WriteHiddenText("Number of Players?", 400, 150,
             0xFF, 0x00, 0x00, font20);
 
